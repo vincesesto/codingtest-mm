@@ -20,18 +20,21 @@ nginx-proxy   1/1     1            1           8m5s
 
 # How I set everything up
 
-1. Create a namespace 
-    kubectl create namespace httpbin-dev
-
-2. Create the httpbin deployment
+1. Create a namespace
+```
+kubectl create namespace httpbin-dev
+```
+3. Create the httpbin deployment
+```
 kubectl -n httpbin-dev create deployment httpbin --image=kennethreitz/httpbin
-
-3. Testing on the pod to make sure it is all working
+```
+4. Testing on the pod to make sure it is all working
+```
 curl -v http://localhost/status/200 
 *   Trying ::1...
 ...> 
 < HTTP/1.1 200 OK
-
+```
 4. Expose the deployment via a service...Create the service yaml with
 kubectl -n httpbin-dev expose deployment httpbin --name=httpbin-service --port=80 --target-port=80 --dry-run=client -o yaml > service.yaml
 
