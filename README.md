@@ -3,6 +3,7 @@
 App running on kubernetes namespace httpbin-dev
 Routing set up via nginx proxy cause I couldn't get ingress-controller working
 
+```
 kubectl get namespace | grep httpbin-dev
 httpbin-dev       Active   106m
 
@@ -15,6 +16,7 @@ kubectl -n httpbin-dev get deployments
 NAME          READY   UP-TO-DATE   AVAILABLE   AGE
 httpbin       1/1     1            1           101m
 nginx-proxy   1/1     1            1           8m5s
+```
 
 # How I set everything up
 
