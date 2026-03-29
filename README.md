@@ -21,7 +21,7 @@ nginx-proxy   1/1     1            1           8m5s
 # How I set everything up
 
 1. Create a namespace 
-kubectl create namespace httpbin-dev
+    kubectl create namespace httpbin-dev
 
 2. Create the httpbin deployment
 kubectl -n httpbin-dev create deployment httpbin --image=kennethreitz/httpbin
