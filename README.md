@@ -36,39 +36,41 @@ curl -v http://localhost/status/200
 < HTTP/1.1 200 OK
 ```
 4. Expose the deployment via a service...Create the service yaml with
+```
 kubectl -n httpbin-dev expose deployment httpbin --name=httpbin-service --port=80 --target-port=80 --dry-run=client -o yaml > service.yaml
 
-then run apply 
+# then run apply 
 kubectl -n httpbin-dev apply -f service.yaml 
-
+```
 5. Installing Helm
+```
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
-
+```
 6. Installing ingress controllers
+```
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 
 helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace
+```
 
 NOTE: After a lot of messing around, it looks like I could not get this working...Possibly an issue with the ports available to the ingress controller
 
-
 7. Set up NGINX to instead run as a proxy
-apply configmap
 
+```
+# Create a config map with routing for the httpbin service and deploy
+kubectl -n httpbin-dev apply -f configmap.yaml
 
-apply deployment
+# Create deployment for nginx to use the configmap and deploy
+kubectl -n httpbin-dev apply -f nginx-deploy.yaml
 
-
-
-apply service
-
-
+# Expose the nginx service and create it as a LoadBalancer to access externally
+kubectl -n httpbin-dev apply -f nginx-service.yaml
+```
 
 
 
  
-
-
