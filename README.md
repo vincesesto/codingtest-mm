@@ -3,6 +3,25 @@
 App running on kubernetes namespace httpbin-dev
 Routing set up via nginx proxy cause I couldn't get ingress-controller working
 
+Now working as expected with IP address
+```
+curl -v http://20.28.163.96/status/200
+...
+< HTTP/1.1 200 OK
+
+
+curl -v -X POST http://20.28.163.96/status/200
+...
+< HTTP/1.1 403 Forbidden
+
+
+curl -v -X GET http://20.28.163.96/get
+...
+< HTTP/1.1 404 Not Found
+```
+
+Pods and deployments now running
+
 ```
 kubectl get namespace | grep httpbin-dev
 httpbin-dev       Active   106m
